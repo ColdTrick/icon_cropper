@@ -3,7 +3,7 @@
 	<name>Icon cropper</name>
 	<author>ColdTrick IT Solutions</author>
 	<version>1.0-alpha</version>
-	<description>Ass icon cropping to entity icon upload</description>
+	<description>Adds icon cropping to entity icon upload</description>
 	<id>icon_cropper</id>
 	<website>http://www.coldtrick.com/</website>
 	<repository>https://github.com/ColdTrick/icon_cropper</repository>
