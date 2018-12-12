@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c6ab2402fca241364cc8c70553c7c33",
+    "content-hash": "b5c428a72ccff5940b6a949c1e694a63",
     "packages": [
         {
             "name": "composer/installers",
@@ -132,6 +132,20 @@
             "dist": {
                 "type": "tar",
                 "url": "https://registry.npmjs.org/cropperjs/-/cropperjs-1.4.3.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/jquery-cropper",
+            "version": "1.0.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/jquery-cropper/-/jquery-cropper-1.0.0.tgz",
                 "reference": null,
                 "shasum": null
             },

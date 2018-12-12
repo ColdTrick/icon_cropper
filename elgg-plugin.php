@@ -1,15 +1,18 @@
 <?php
 
+use ColdTrick\IconCropper\Bootstrap;
+
 $composer_path = '';
 if (is_dir(__DIR__ . '/vendor')) {
 	$composer_path = __DIR__ . '/';
 }
 
 return [
+	'bootstrap' => Bootstrap::class,
 	'views' => [
 		'default' => [
-			'cropperjs/cropper.js' => $composer_path . 'vendor/npm-asset/cropperjs/dist/cropper.min.js',
-			'cropperjs/cropper.css' => $composer_path . 'vendor/npm-asset/cropperjs/dist/cropper.min.css',
+			'cropperjs/' => $composer_path . 'vendor/npm-asset/cropperjs/dist/',
+			'jquery-cropper/' => $composer_path . 'vendor/npm-asset/jquery-cropper/dist/',
 		],
 	],
 ];
