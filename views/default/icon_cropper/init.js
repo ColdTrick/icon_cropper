@@ -6,15 +6,21 @@ define(function(require) {
 	function Cropper() {
 		var $field;
 		var $img;
+		var $imgWrapper;
 		var $inputWrapper;
 		var that = this;
 		
 		this.init = function(selector) {
 			$field = $(selector);
-			$img = $field.closest('.elgg-field').siblings('.icon-cropper-wrapper').find('> img').eq(0);
+			$imgWrapper = $field.closest('.elgg-field').siblings('.icon-cropper-wrapper');
+			$img = $imgWrapper.find('> img').eq(0);
 			$inputWrapper = $field.closest('.elgg-field').siblings('.icon-cropper-input').eq(0);
 			
 			$field.on('change', this.replaceImg);
+			
+			if ($img[0].hasAttribute('src')) {
+				this.reload();
+			}
 		};
 	
 		this.replaceImg = function() {
@@ -28,11 +34,14 @@ define(function(require) {
 		    	
 		    	$img.attr('src', this.result);
 		    	
+		    	$inputWrapper.find('input[name="icon_cropper_guid"], input[name="icon_cropper_type"], input[name="icon_cropper_name"]').remove();
+		    	
 		    	that.reload();
 		    };
 		};
 		
 		this.reload = function() {
+			$imgWrapper.removeClass('hidden');
 			$img.cropper($img.data().iconCropper);
 			$img.on('crop.iconCropper', this.crop);
 		};

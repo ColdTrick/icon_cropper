@@ -12,10 +12,13 @@
 elgg_load_css('cropperjs');
 
 $entity = elgg_extract('entity', $vars);
+$icon_type = elgg_extract('icon_type', $vars, 'icon');
+$input_name = elgg_extract('name', $vars, 'icon');
 
 // build cropper configuration
 $default_config = [
-	'viewMode' => 3,
+	'viewMode' => 2,
+	'background' => false,
 	'autoCropArea' => 1,
 	'rotatable' => false,
 ];
@@ -23,7 +26,21 @@ $default_config = [
 $cropper_data = array_merge($default_config, (array) elgg_extract('cropper_config', $vars, []));
 $cropper_data = json_encode($cropper_data);
 
-echo elgg_format_element('div', ['class' => 'icon-cropper-wrapper'], elgg_format_element('img', ['data-icon-cropper' => $cropper_data]));
+$img_url = null;
+if ($entity instanceof ElggEntity && $entity->hasIcon('master', $icon_type)) {
+	$img_url = $entity->getIconURL([
+		'size' => 'master',
+		'type' => $icon_type,
+	]);
+}
+
+$img = elgg_format_element('img', [
+	'data-icon-cropper' => $cropper_data,
+	'src' => $img_url,
+]);
+
+
+echo elgg_format_element('div', ['class' => ['icon-cropper-wrapper', 'hidden']], $img);
 
 $input ='';
 foreach (['x1', 'y1', 'x2', 'y2'] as $coord) {
@@ -31,6 +48,24 @@ foreach (['x1', 'y1', 'x2', 'y2'] as $coord) {
 		'#type' => 'hidden',
 		'name' => $coord,
 		'value' => ($entity instanceof ElggEntity) ? $entity->$coord : null,
+	]);
+}
+
+if (!empty($img_url)) {
+	$input .= elgg_view_field([
+		'#type' => 'hidden',
+		'name' => 'icon_cropper_guid',
+		'value' => $entity->guid,
+	]);
+	$input .= elgg_view_field([
+		'#type' => 'hidden',
+		'name' => 'icon_cropper_type',
+		'value' => $icon_type,
+	]);
+	$input .= elgg_view_field([
+		'#type' => 'hidden',
+		'name' => 'icon_cropper_input',
+		'value' => $input_name,
 	]);
 }
 
