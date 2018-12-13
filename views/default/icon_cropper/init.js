@@ -51,14 +51,15 @@ define(function(require) {
 		    	
 		    	$inputWrapper.find('input[name="icon_cropper_guid"], input[name="icon_cropper_type"], input[name="icon_cropper_name"]').remove();
 		    	
-		    	that.reload();
+		    	that.reload({data:{}});
 		    };
 		};
 		
 		this.reload = function(extra_data = {}) {
 			$imgWrapper.removeClass('hidden');
 			
-			var data = Object.assign($img.data().iconCropper, extra_data);
+			var data = $img.data().iconCropper;
+			Object.assign(data, extra_data);
 
 			$img.cropper(data);
 			$img.on('crop.iconCropper', this.crop);
