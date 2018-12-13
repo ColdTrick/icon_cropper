@@ -31,6 +31,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 */
 	protected function extendViews() {
 		
+		elgg_extend_view('cropperjs/cropper.css', 'icon_cropper/init.css');
 		elgg_extend_view('entity/edit/icon/file', 'icon_cropper/init');
 	}
 	
