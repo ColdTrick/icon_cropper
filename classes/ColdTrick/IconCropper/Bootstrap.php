@@ -38,6 +38,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 	protected function registerHooks() {
 		$hooks = $this->elgg()->hooks;
 		
+		$hooks->registerHandler('action:validate', 'all', __NAMESPACE__ . '\ActionValidation::checkIconCropping');
 		$hooks->registerHandler('view_vars', 'entity/edit/icon/thumb', 'Elgg\Values::preventViewOutput');
 		$hooks->registerHandler('view_vars', 'icon_cropper/init', __NAMESPACE__ . '\CropperConfig::prepareEntityTypeSubtype');
 		$hooks->registerHandler('view_vars', 'icon_cropper/init', __NAMESPACE__ . '\CropperConfig::prepareAspectRatio', 900);
