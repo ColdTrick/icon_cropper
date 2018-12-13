@@ -21,6 +21,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		]);
 		
 		$this->extendViews();
+		$this->registerHooks();
 	}
 	
 	/**
@@ -31,5 +32,12 @@ class Bootstrap extends DefaultPluginBootstrap {
 	protected function extendViews() {
 		
 		elgg_extend_view('entity/edit/icon/file', 'icon_cropper/init');
+	}
+	
+	protected function registerHooks() {
+		$hooks = $this->elgg()->hooks;
+		
+		$hooks->registerHandler('view_vars', 'icon_cropper/init', __NAMESPACE__ . '\CropperConfig::prepareEntityTypeSubtype');
+		$hooks->registerHandler('view_vars', 'icon_cropper/init', __NAMESPACE__ . '\CropperConfig::prepareAspectRatio', 900);
 	}
 }
