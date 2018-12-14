@@ -42,12 +42,27 @@ $img = elgg_format_element('img', [
 
 echo elgg_format_element('div', ['class' => ['icon-cropper-wrapper', 'hidden']], $img);
 
+$entity_coords = [];
+if ($entity instanceof ElggEntity) {
+	if ($icon_type === 'icon') {
+		$entity_coords = [
+			'x1' => $entity->x1,
+			'y1' => $entity->y1,
+			'x2' => $entity->x2,
+			'y2' => $entity->y2,
+		];
+	} elseif (isset($entity->{"{$icon_type}_coords"})) {
+		$entity_coords = unserialize($entity->{"{$icon_type}_coords"});
+	}
+}
+
+
 $input ='';
 foreach (['x1', 'y1', 'x2', 'y2'] as $coord) {
 	$input .= elgg_view_field([
 		'#type' => 'hidden',
 		'name' => $coord,
-		'value' => ($entity instanceof ElggEntity) ? $entity->$coord : null,
+		'value' => elgg_extract($coord, $entity_coords),
 	]);
 }
 
