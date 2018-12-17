@@ -19,22 +19,7 @@ define(function(require) {
 			$field.on('change', this.replaceImg);
 			
 			if ($img[0].hasAttribute('src')) {
-				
-				var x1 = $inputWrapper.find('input[name="x1"]').val();
-				var x2 = $inputWrapper.find('input[name="x2"]').val();
-				var y1 = $inputWrapper.find('input[name="y1"]').val();
-				var y2 = $inputWrapper.find('input[name="y2"]').val();
-				
-				var data = {
-					data: {
-						x: Math.round(x1),
-						y: Math.round(y1),
-						width: Math.round(x2-x1),
-						height: Math.round(y2-y1)
-					},
-				};
-
-				this.reload(data);
+				this.reload();
 			}
 		};
 	

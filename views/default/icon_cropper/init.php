@@ -24,23 +24,6 @@ $default_config = [
 ];
 
 $cropper_data = array_merge($default_config, (array) elgg_extract('cropper_config', $vars, []));
-$cropper_data = json_encode($cropper_data);
-
-$img_url = null;
-if ($entity instanceof ElggEntity && $entity->hasIcon('master', $icon_type)) {
-	$img_url = $entity->getIconURL([
-		'size' => 'master',
-		'type' => $icon_type,
-	]);
-}
-
-$img = elgg_format_element('img', [
-	'data-icon-cropper' => $cropper_data,
-	'src' => $img_url,
-]);
-
-
-echo elgg_format_element('div', ['class' => ['icon-cropper-wrapper', 'hidden']], $img);
 
 $entity_coords = [];
 if ($entity instanceof ElggEntity) {
@@ -54,8 +37,31 @@ if ($entity instanceof ElggEntity) {
 	} elseif (isset($entity->{"{$icon_type}_coords"})) {
 		$entity_coords = unserialize($entity->{"{$icon_type}_coords"});
 	}
+	
+	if (isset($entity_coords['x1'], $entity_coords['x2'], $entity_coords['y1'], $entity_coords['y2'])) {
+		$cropper_data['data'] = [
+			'x' => $entity_coords['x1'],
+			'y' => $entity_coords['y1'],
+			'width' => $entity_coords['x2'] - $entity_coords['x1'],
+			'height' => $entity_coords['y2'] - $entity_coords['y1'],
+		];
+	}
 }
 
+$img_url = null;
+if ($entity instanceof ElggEntity && $entity->hasIcon('master', $icon_type)) {
+	$img_url = $entity->getIconURL([
+		'size' => 'master',
+		'type' => $icon_type,
+	]);
+}
+
+$img = elgg_format_element('img', [
+	'data-icon-cropper' => json_encode($cropper_data),
+	'src' => $img_url,
+]);
+
+echo elgg_format_element('div', ['class' => ['icon-cropper-wrapper', 'hidden']], $img);
 
 $input ='';
 foreach (['x1', 'y1', 'x2', 'y2'] as $coord) {
