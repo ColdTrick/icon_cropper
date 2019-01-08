@@ -59,8 +59,18 @@ class CropperConfig {
 		$entity_subtype = elgg_extract('entity_subtype', $vars);
 		
 		$sizes = elgg_get_icon_sizes($entity_type, $entity_subtype, $icon_type);
-		if (empty($sizes) || !isset($sizes[$detect_ratio_size])) {
+		if (empty($sizes)) {
 			// no way to read the config
+			return;
+		}
+		
+		if (!isset($sizes[$detect_ratio_size]) && $detect_ratio_size !== 'master') {
+			// fallback to master if custom ratio is missing
+			$detect_ratio_size = 'master';
+		}
+		
+		if (!isset($sizes[$detect_ratio_size])) {
+			// return if ratio is not present
 			return;
 		}
 		
