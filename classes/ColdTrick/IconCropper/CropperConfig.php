@@ -77,4 +77,33 @@ class CropperConfig {
 		
 		return $vars;
 	}
+	
+	/**
+	 * Set a minimal width and height for uploading an image
+	 *
+	 * @param \Elgg\Hook $hook 'elgg.data', 'site'
+	 *
+	 * @return array
+	 */
+	public static function setMinWidthHeighConfig(\Elgg\Hook $hook) {
+		
+		$width = (int) elgg_get_plugin_setting('min_width', 'icon_cropper');
+		if ($width < 0) {
+			$width = 0;
+		}
+		
+		$height = (int) elgg_get_plugin_setting('min_height', 'icon_cropper');
+		if ($height < 0) {
+			$height = 0;
+		}
+		
+		$result = $hook->getValue();
+		
+		$result['iconCropper'] = [
+			'minWidth' => $width,
+			'minHeight' => $height
+		];
+		
+		return $result;
+	}
 }

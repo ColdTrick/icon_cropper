@@ -15,6 +15,26 @@ $entity = elgg_extract('entity', $vars);
 $icon_type = elgg_extract('icon_type', $vars, 'icon');
 $input_name = elgg_extract('name', $vars, 'icon');
 
+// placeholder for messages
+$errors = [];
+
+$min_width = (int) elgg_get_plugin_setting('min_width', 'icon_cropper');
+if ($min_width > 0) {
+	$errors[] = elgg_view_message('warning', elgg_echo('icon_cropper:error:width', [$min_width]), [
+		'title' => false,
+		'class' => ['icon-cropper-error-width', 'hidden'],
+	]);
+}
+$min_height = (int) elgg_get_plugin_setting('min_height', 'icon_cropper');
+if ($min_height > 0) {
+	$errors[] = elgg_view_message('warning', elgg_echo('icon_cropper:error:height', [$min_height]), [
+		'title' => false,
+		'class' => ['icon-cropper-error-height', 'hidden'],
+	]);
+}
+
+echo elgg_format_element('div', ['class' => 'icon-cropper-messages'], implode(PHP_EOL, $errors));
+
 // build cropper configuration
 $default_config = [
 	'viewMode' => 2,
