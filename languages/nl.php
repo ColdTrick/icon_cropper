@@ -5,8 +5,8 @@
  */
 
 return array (
-  'icon_cropper:settings:min_width' => 'Aangeraden minimale breedte voor een afbeelding gedurende upload/cropping',
-  'icon_cropper:settings:min_height' => 'Aangeraden minimale hoogte voor een afbeelding gedurende upload/cropping',
+  'icon_cropper:settings:min_width' => 'Aangeraden minimale breedte voor een afbeelding gedurende upload/cropping.',
+  'icon_cropper:settings:min_height' => 'Aangeraden minimale hoogte voor een afbeelding gedurende upload/cropping.',
   'icon_cropper:settings:min_width:help' => 'Indien dit is ingesteld zou de afbeelding minimaal deze breedte moeten hebben',
   'icon_cropper:settings:min_height:help' => 'Indien dit is ingesteld zou de afbeelding minimaal deze hoogte moeten hebben',
   'icon_cropper:error:width' => 'Het wordt aangeraden om een afbeelding te gebruiken met een minimale breedte van %dpx',

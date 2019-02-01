@@ -9,6 +9,6 @@ return [
 	'icon_cropper:settings:min_height:help' => "When set the uploaded image should be have least this height",
 	
 	// js error
-	'icon_cropper:error:width' => "It's recommended to use an image with a minimal width of at least %dpx",
-	'icon_cropper:error:height' => "It's recommended to use an image with a minimal height of at least %dpx",
+	'icon_cropper:error:width' => "It's recommended to use an image with a minimal width of at least %dpx.",
+	'icon_cropper:error:height' => "It's recommended to use an image with a minimal height of at least %dpx.",
 ];

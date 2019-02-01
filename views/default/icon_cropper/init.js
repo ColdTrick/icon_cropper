@@ -37,6 +37,7 @@ define(function(require) {
 	    	$img.cropper('destroy');
 	    	$img.attr('src', '');
 	    	
+	    	$messagesWrapper.addClass('hidden');
 			$messagesWrapper.find('.icon-cropper-error-width').addClass('hidden');
 			$messagesWrapper.find('.icon-cropper-error-height').addClass('hidden');
 			
@@ -47,9 +48,11 @@ define(function(require) {
 		    	
 		    	image.onload = function(imageEvent) {
 		    		if (elgg.data.iconCropper.minWidth > 0 && this.width < elgg.data.iconCropper.minWidth) {
+		    			$messagesWrapper.removeClass('hidden');
 		    			$messagesWrapper.find('.icon-cropper-error-width').removeClass('hidden');
 		    		}
 		    		if (elgg.data.iconCropper.minHeight > 0 && this.height < elgg.data.iconCropper.minHeight) {
+		    			$messagesWrapper.removeClass('hidden');
 		    			$messagesWrapper.find('.icon-cropper-error-height').removeClass('hidden');
 		    		}
 		    		
