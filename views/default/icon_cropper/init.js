@@ -65,11 +65,13 @@ define(function(require) {
 		    };
 		};
 		
-		this.reload = function(extra_data = {}) {
+		this.reload = function(extra_data) {
+			extra_data = extra_data || {};
+
 			$imgWrapper.removeClass('hidden');
 			
 			var data = $img.data().iconCropper;
-			Object.assign(data, extra_data);
+			$.extend(data, extra_data);
 
 			$img.cropper(data);
 			$img.on('crop.iconCropper', this.crop);
