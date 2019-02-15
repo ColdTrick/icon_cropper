@@ -37,9 +37,7 @@ define(function(require) {
 	    	$img.cropper('destroy');
 	    	$img.attr('src', '');
 	    	
-	    	$messagesWrapper.addClass('hidden');
-			$messagesWrapper.find('.icon-cropper-error-width').addClass('hidden');
-			$messagesWrapper.find('.icon-cropper-error-height').addClass('hidden');
+	    	that.resetMessages();
 			
 			// validate image
 		    oFReader.onload = function (oFREvent) {
@@ -47,15 +45,6 @@ define(function(require) {
 		    	image.src = this.result;
 		    	
 		    	image.onload = function(imageEvent) {
-		    		if (elgg.data.iconCropper.minWidth > 0 && this.width < elgg.data.iconCropper.minWidth) {
-		    			$messagesWrapper.removeClass('hidden');
-		    			$messagesWrapper.find('.icon-cropper-error-width').removeClass('hidden');
-		    		}
-		    		if (elgg.data.iconCropper.minHeight > 0 && this.height < elgg.data.iconCropper.minHeight) {
-		    			$messagesWrapper.removeClass('hidden');
-		    			$messagesWrapper.find('.icon-cropper-error-height').removeClass('hidden');
-		    		}
-		    		
 		    		$img.attr('src', this.src);
 		    		
 		    		$inputWrapper.find('input[name="icon_cropper_guid"], input[name="icon_cropper_type"], input[name="icon_cropper_name"]').remove();
@@ -80,11 +69,31 @@ define(function(require) {
 		this.crop = function(event) {
 			var cropDetails = $img.cropper('getData', true);
 			
+			that.resetMessages();
+			
+			if (elgg.data.iconCropper.minWidth > 0 && cropDetails.width < elgg.data.iconCropper.minWidth) {
+    			$messagesWrapper.removeClass('hidden');
+    			$messagesWrapper.find('.icon-cropper-error-generic').removeClass('hidden');
+    			$messagesWrapper.find('.icon-cropper-error-width').removeClass('hidden');
+    		}
+    		if (elgg.data.iconCropper.minHeight > 0 && cropDetails.height < elgg.data.iconCropper.minHeight) {
+    			$messagesWrapper.removeClass('hidden');
+    			$messagesWrapper.find('.icon-cropper-error-generic').removeClass('hidden');
+    			$messagesWrapper.find('.icon-cropper-error-height').removeClass('hidden');
+    		}
+			
 			$inputWrapper.find('input[name="x1"]').val(cropDetails.x);
 			$inputWrapper.find('input[name="y1"]').val(cropDetails.y);
 			$inputWrapper.find('input[name="x2"]').val(cropDetails.x + cropDetails.width);
 			$inputWrapper.find('input[name="y2"]').val(cropDetails.y + cropDetails.height);
 		}
+		
+		this.resetMessages = function() {
+			$messagesWrapper.addClass('hidden');
+			$messagesWrapper.find('.icon-cropper-error-generic').addClass('hidden');
+			$messagesWrapper.find('.icon-cropper-error-width').addClass('hidden');
+			$messagesWrapper.find('.icon-cropper-error-height').addClass('hidden');
+		};
 	};
 	
 	return Cropper;
