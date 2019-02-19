@@ -34,6 +34,6 @@ array_unshift($errors, elgg_format_element('div', [
 	]
 ], elgg_echo('icon_cropper:error:generic')));
 
-echo elgg_view_message('warning', implode(PHP_EOL, $errors), [
+echo elgg_view_message('warning', elgg_view('output/longtext', ['value' => implode('', $errors)]), [
 	'class' => ['icon-cropper-messages', 'hidden'],
 ]);
