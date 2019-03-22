@@ -6,6 +6,7 @@ define(function(require) {
 	
 	function Cropper() {
 		var $field;
+		var $fieldWrapper;
 		var $img;
 		var $imgWrapper;
 		var $inputWrapper;
@@ -14,13 +15,17 @@ define(function(require) {
 		
 		this.init = function(selector) {
 			$field = $(selector);
-			$imgWrapper = $field.closest('.elgg-field').siblings('.icon-cropper-wrapper');
+			$fieldWrapper = $field.closest('.elgg-field');
+			$imgWrapper = $fieldWrapper.siblings('.icon-cropper-wrapper');
 			$img = $imgWrapper.find('> img').eq(0);
-			$inputWrapper = $field.closest('.elgg-field').siblings('.icon-cropper-input').eq(0);
+			$inputWrapper = $fieldWrapper.siblings('.icon-cropper-input').eq(0);
 			
-			$messagesWrapper = $field.closest('.elgg-field').siblings('.icon-cropper-messages');
+			$messagesWrapper = $fieldWrapper.siblings('.icon-cropper-messages');
 			
 			$field.on('change', this.replaceImg);
+			
+			$remove = $fieldWrapper.siblings('.elgg-entity-edit-icon-remove').find('input[type="checkbox"]');
+			$remove.on('change', this.checkRemoveState);
 			
 			if ($img[0].hasAttribute('src')) {
 				this.reload();
@@ -86,13 +91,33 @@ define(function(require) {
 			$inputWrapper.find('input[name="y1"]').val(cropDetails.y);
 			$inputWrapper.find('input[name="x2"]').val(cropDetails.x + cropDetails.width);
 			$inputWrapper.find('input[name="y2"]').val(cropDetails.y + cropDetails.height);
-		}
+		};
 		
 		this.resetMessages = function() {
 			$messagesWrapper.addClass('hidden');
 			$messagesWrapper.find('.icon-cropper-error-generic').addClass('hidden');
 			$messagesWrapper.find('.icon-cropper-error-width').addClass('hidden');
 			$messagesWrapper.find('.icon-cropper-error-height').addClass('hidden');
+		};
+		
+		this.show = function() {
+			$fieldWrapper.removeClass('hidden');
+			this.reload();
+			$img.trigger('crop.iconCropper');
+		};
+		
+		this.hide = function() {
+			$fieldWrapper.addClass('hidden');
+			$imgWrapper.addClass('hidden');
+			this.resetMessages();
+		};
+		
+		this.checkRemoveState = function() {
+			if ($(this).is(':checked')) {
+				that.hide();
+			} else {
+				that.show();
+			}
 		};
 	};
 	
