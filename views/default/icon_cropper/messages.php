@@ -1,5 +1,9 @@
 <?php
 
+if (!(bool) elgg_extract('show_icon_cropper_messages', $vars, true)) {
+	return;
+}
+
 // placeholder for messages
 $errors = [];
 

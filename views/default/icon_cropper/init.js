@@ -77,15 +77,11 @@ define(function(require) {
 			that.resetMessages();
 			
 			if (elgg.data.iconCropper.minWidth > 0 && cropDetails.width < elgg.data.iconCropper.minWidth) {
-    			$messagesWrapper.removeClass('hidden');
-    			$messagesWrapper.find('.icon-cropper-error-generic').removeClass('hidden');
-    			$messagesWrapper.find('.icon-cropper-error-width').removeClass('hidden');
-    		}
-    		if (elgg.data.iconCropper.minHeight > 0 && cropDetails.height < elgg.data.iconCropper.minHeight) {
-    			$messagesWrapper.removeClass('hidden');
-    			$messagesWrapper.find('.icon-cropper-error-generic').removeClass('hidden');
-    			$messagesWrapper.find('.icon-cropper-error-height').removeClass('hidden');
-    		}
+				that.showMessage('width');
+			}
+			if (elgg.data.iconCropper.minHeight > 0 && cropDetails.height < elgg.data.iconCropper.minHeight) {
+				that.showMessage('height');
+			}
 			
 			$inputWrapper.find('input[name="x1"]').val(cropDetails.x);
 			$inputWrapper.find('input[name="y1"]').val(cropDetails.y);
@@ -94,10 +90,28 @@ define(function(require) {
 		};
 		
 		this.resetMessages = function() {
+			if (!$messagesWrapper.length) {
+				return;
+			}
+			
 			$messagesWrapper.addClass('hidden');
 			$messagesWrapper.find('.icon-cropper-error-generic').addClass('hidden');
 			$messagesWrapper.find('.icon-cropper-error-width').addClass('hidden');
 			$messagesWrapper.find('.icon-cropper-error-height').addClass('hidden');
+		};
+		
+		this.showMessage = function(message_type) {
+			if (!$.inArray(message_type, ['width', 'height'])) {
+				return;
+			}
+			
+			if (!$messagesWrapper.length) {
+				return;
+			}
+			
+			$messagesWrapper.removeClass('hidden');
+			$messagesWrapper.find('.icon-cropper-error-generic').removeClass('hidden');
+			$messagesWrapper.find('.icon-cropper-error-' + message_type).removeClass('hidden');
 		};
 		
 		this.show = function() {
