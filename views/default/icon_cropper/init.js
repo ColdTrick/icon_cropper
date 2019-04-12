@@ -55,8 +55,7 @@ define(function(require) {
 		    		$inputWrapper.find('input[name="icon_cropper_guid"], input[name="icon_cropper_type"], input[name="icon_cropper_name"]').remove();
 		    		
 		    		that.reload({
-		    			data: {},
-		    			checkOrientation: true
+		    			data: {}
 		    		});
 		    	};
 		    };
