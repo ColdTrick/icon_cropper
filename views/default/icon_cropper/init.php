@@ -20,6 +20,7 @@ $default_config = [
 	'viewMode' => 2,
 	'background' => false,
 	'autoCropArea' => 1,
+	'checkOrientation' => false,
 ];
 
 $cropper_data = array_merge($default_config, (array) elgg_extract('cropper_config', $vars, []));
