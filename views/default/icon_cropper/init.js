@@ -103,7 +103,7 @@ define(function(require) {
 		};
 		
 		this.showMessage = function(message_type) {
-			if (!$.inArray(message_type, ['width', 'height'])) {
+			if ($.inArray(message_type, ['width', 'height']) < 0) {
 				return;
 			}
 			
