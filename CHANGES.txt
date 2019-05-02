@@ -1,6 +1,11 @@
 Version history
 ===============
 
+1.0.2 (2019-05-02):
+
+- fixed: min width warning not showing
+- fixed: only show size warnings for icons
+
 1.0.1 (2019-04-17):
 
 - fixed: cropping with auto rotating images
