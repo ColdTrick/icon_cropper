@@ -35,6 +35,7 @@ class ActionValidation {
 			return;
 		}
 		
+		$current = [];
 		if ($icon_type === 'icon') {
 			$current = [
 				'x1' => (int) $entity->x1,
@@ -42,8 +43,12 @@ class ActionValidation {
 				'x2' => (int) $entity->x2,
 				'y2' => (int) $entity->y2,
 			];
-		} else {
+		} elseif (isset($entity->{"{$icon_type}_coords"})) {
 			$current = unserialize($entity->{"{$icon_type}_coords"});
+			
+			if (!is_array($current)) {
+				$current = [];
+			}
 		}
 		
 		$input_cropping_coords = [
