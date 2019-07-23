@@ -37,6 +37,16 @@ if ($entity instanceof ElggEntity) {
 		$entity_coords = unserialize($entity->{"{$icon_type}_coords"});
 	}
 	
+	// cast to ints
+	array_walk($entity_coords, function(&$value) {
+		$value = (int) $value;
+	});
+	// remove imvalid values
+	$entity_coords = array_filter($entity_coords, function($value) {
+		return $value >= 0;
+	});
+	
+	// still enough for cropping
 	if (isset($entity_coords['x1'], $entity_coords['x2'], $entity_coords['y1'], $entity_coords['y2'])) {
 		$cropper_data['data'] = [
 			'x' => $entity_coords['x1'],
