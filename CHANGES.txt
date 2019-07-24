@@ -1,6 +1,10 @@
 Version history
 ===============
 
+1.0.4 (2019-07-24):
+
+- fixed: fatal errors with invalid cropping coordinates
+
 1.0.3 (2019-05-29):
 
 - fixed: correctly check cropping coords in action validation
